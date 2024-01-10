@@ -1,28 +1,12 @@
 <script lang="ts">
+
+    import { Button, Col, Row } from '@sveltestrap/sveltestrap';
     import { onMount } from 'svelte';
     import type { Project } from '$lib/index';
 
     export let items : Project[] = [];
     
- 
-
-    const url='/projects'
-    // const maxWidth = '45px;'
-    // function handleClick(item : string) {
-    //     console.log("Clicked item:", item);
-    // }
-
-    // function createContainerPartitions(width: number, height: number, n: number) {
-        
-    //     const cols = 3; 
-    //     const rows = Math.ceil(n / cols);
-    //     const remainder = n % cols;
-
-    //     console.log(rows, remainder);
-    // }
-
     onMount(() => {
-        // createContainerPartitions(400, 800, 8);
     })
 
 </script>
@@ -39,7 +23,7 @@
                 </div>
             </div> 
         </a>
-    {/each}
+    {/each} 
 </div>
 
 <style>
@@ -50,6 +34,8 @@
         max-width: 450px;
         justify-content: center;
         align-content: center;
+        font-family: 'Roboto', sans-serif;
+        font-weight: 350;
     }
     .showcase-item {
         min-width: 150px;
@@ -61,7 +47,7 @@
         padding: 10px;
     }
     .showcase-item:hover .showcase-item-title {
-        font-size: 1.5em;
+        font-size: 1.9em;
     }
     .showcase-item-desc {
         font-size: 12px;
@@ -71,7 +57,7 @@
         font-size: 20px;
     }
     .plain-link {
-        text-decoration: none; /* Removes underline */
-        color: inherit; /* Inherits color from parent */
+        text-decoration: none;
+        color: inherit;
     }
 </style>
