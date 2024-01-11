@@ -1,6 +1,5 @@
 <script lang="ts">
 
-    import { Button, Col, Row } from '@sveltestrap/sveltestrap';
     import { onMount } from 'svelte';
     import type { Project } from '$lib/index';
 
@@ -43,9 +42,14 @@
         margin: 5px;
         outline: 1px solid black; 
         border-radius: 8px;
+        background-color: white;
         text-align:center;
         padding: 10px;
     }
+    .showcase-item:hover {
+        background-color: rgb(234, 248, 255);
+    }
+
     .showcase-item:hover .showcase-item-title {
         font-size: 1.9em;
     }

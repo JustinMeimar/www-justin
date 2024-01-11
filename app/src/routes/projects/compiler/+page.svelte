@@ -1,27 +1,48 @@
-<script>
+<script lang="ts">
     import Footer from '../../Footer.svelte';
     import Navbar from '../../Navbar.svelte';
-    import Editor from './Editor.svelte';
-
+    import CodeEditor from './CodeEditor.svelte';
     import { Button, Dropdown, DropdownToggle, DropdownMenu, DropdownItem, Nav } from "@sveltestrap/sveltestrap";
-    let editorContent = '';
-    let llvmIRContent = '';
-    let outputContent = '';
 
-    let editorFontSize = 20;
-    const fontSizes = [12, 14, 16, 18, 20, 22, 24, 26, 28, 30];
+    export let editorContent : string = '';
+    let llvmIRContent : string = '';
+    let outputContent : string = '';
 
-    let defaultProgram = "hello-world";
-    const programs = ["hello-world", "fibonacci", "merge-sort", "generator"];
+    let currentProgram = "hello-world";
+
+    const programs = [
+        "break_continue", "helloworld", "tuple",
+        "control_flow", "iterator", "type_promotion",
+        "fibonnaci", "matrix", "type_qualifier",
+        "filter", "mergesort", "vector",
+        "forward_decl", "pass_by_reference",
+        "generator", "quicksort"
+    ]; 
     let dropdownOpen = false;
 
-    function clearOutput() {
-        outputContent = '';
+    const clearOutput = () => { outputContent = '';}
+
+    async function selectProgram(program) {
+        console.log(program);
+        
+        // const response = await fetch('/program.txt');
+        const response = await fetch(
+            `/programs/input_compiler_${program}.txt`
+        );
+        
+        if (response.ok) {
+            currentProgram = program;
+            editorContent = await response.text();
+            console.log(editorContent);
+        } else {
+            console.error('Failed to fetch program');
+        }
     }
 
-    function selectProgram(program) {
-        defaultProgram = program;
+    $: {
+        console.log("editor content:", editorContent);
     }
+
 </script>
 
 <div class="component-body">
@@ -31,6 +52,7 @@
             Compiler Explorer 
         </div>
     </div>
+    <div class="editor"></div>
     <div class="area-container">
         <div class="editor-container">
             Program
@@ -38,7 +60,7 @@
                 <Button color="primary">Run</Button>
                 <Dropdown isOpen={dropdownOpen} toggle={() => dropdownOpen = !dropdownOpen}>
                     <DropdownToggle caret>
-                        {defaultProgram}
+                        {currentProgram}
                     </DropdownToggle>
                     <DropdownMenu>
                         {#each programs as program}
@@ -48,24 +70,22 @@
                         {/each}
                     </DropdownMenu>
                 </Dropdown>
-                <input type="range" min="12" max="30" bind:value={editorFontSize} />
             </div>
-            <textarea bind:value={editorContent} class="editor-textarea"></textarea>
+            <CodeEditor bind:editorContent/>
         </div>
         <div class="ir-container">
             LLVM IR
             <div class="utility-bar">
                 <Button color="secondary">Optimize</Button>
             </div>
-            <!-- <Editor></Editor> -->
-            <textarea bind:value={llvmIRContent} class="editor-textarea"></textarea>
+            <CodeEditor bind:llvmIRContent/>
         </div>
         <div class="output-container">
             Output
             <div class="utility-bar">
                 <Button color="warning" on:click={clearOutput}>Clear</Button>
             </div>
-            <textarea bind:value={outputContent} class="editor-textarea"></textarea>
+            <CodeEditor bind:outputContent/>
         </div>
     </div>
     <Footer></Footer>
@@ -87,20 +107,33 @@
         display: flex;
         flex: 1;
         min-width: 100%;
+        overflow: auto;
+        margin-bottom: 80px;
+        padding-left: 40px;
+        padding-right: 40px;
     }
     .utility-bar {
         display: flex;
     }
     .editor-container, .ir-container, .output-container {
         flex: 1;
+        display: flex;
+        flex-direction: column;
         overflow: hidden; 
-        border: 1px solid black;
         padding: 10px;
     }
+    .header {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
     .title {
         font-size: 40px;
-        font-weight: 200;
-    } 
+        font-weight: 300;
+        text-align: center; /* Center the text inside the title */
+    }
     .editor-textarea {
         width: 100%;
         color: #E0E0E0; 
@@ -108,34 +141,9 @@
         resize: none;
         font-family: 'Consolas', 'Monaco', monospace;
         font-size: 16px;
-        /* background-color: #1A1A1A; */
-        /* border: 2px solid #C084FC; */
     } 
 </style>
 
-<!-- /* 
-    .editor-container, .ir-container, .output-container {
-        flex: 1;
-        overflow: hidden;
-        padding: 10px;
-    }
-    .utility-bar {
-        min-height: 20px;
-        border: 1px solid black;  
-    }
-    .editor-textarea {
-        width: calc(100% - 20px);
-        height: calc(100% - 20px);
-        background-color: #1A1A1A;
-        color: #E0E0E0;
-        border: 4px solid #C084FC;
-        padding: 10px;
-        resize: none;
-        font-family: 'Consolas', 'Monaco', monospace;
-        font-size: 16px;
-    } 
-    */
- -->
 <!--  Colors
     --deep-black: #0D0D0D;
     --muted-black: #1A1A1A;

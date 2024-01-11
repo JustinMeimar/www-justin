@@ -1,0 +1,30 @@
+procedure fib(integer n) returns integer {
+
+    if (n <= 1) {
+        return 0;
+    } else if (n == 2) {
+        return 1;
+    } else{
+        return fib(n-1) + fib(n-2); 
+    }
+    
+    return 0;
+}
+
+procedure main() returns integer {
+
+    integer n = 10;
+    
+    integer[n] toCalculate = [i in 1..n | i];
+    integer[n] calculated;
+
+    loop i in 1..n { //use the iterator loop langauge feature
+        calculated[i] = fib(i);
+    }
+
+    toCalculate -> stdout;
+    '\n' -> stdout;
+    calculated -> stdout;
+
+    return 0;
+}

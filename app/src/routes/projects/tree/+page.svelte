@@ -172,6 +172,15 @@
         startY = event.clientY;
     }
 
+    function handleZoom(event: WheelEvent) {
+        console.log("event");
+        const zoomSensitivity = 0.5;
+        if (event.deltaY < 0) {
+            zoomLevel = Math.min(zoomLevel + zoomSensitivity, 15); // Max zoom level
+        } else {
+            zoomLevel = Math.max(zoomLevel - zoomSensitivity, 0.01); // Min zoom level
+        }
+    }
     function onDrag(event: MouseEvent) {
         if (isDragging) {
             const dx = (event.clientX - startX) * 1/zoomLevel;
@@ -215,7 +224,7 @@
         <Katex math={fractionLatexString}></Katex><input type="range" min="0.125" max="0.5" step="0.125" bind:value={m} />
         <Katex math={nLatexString}></Katex><input type="range" min="2" max="256" bind:value={n} />
         <div>
-            Zoom: <input type="range" min="0.01" max="5" step="0.1" bind:value={zoomLevel} />
+            Zoom: <input type="range" min="0.01" max="10" step="0.1" bind:value={zoomLevel} />
             Stochasticity: <input type="range" min="1" max="10" step="0.1" bind:value={stochasticLevel} />
         </div> 
     </div> 
@@ -226,6 +235,7 @@
          on:mousemove={onDrag}
          on:mouseup={endDrag}
          on:mouseleave={endDrag}
+         on:wheel={handleZoom}
     >
         <svg width="600" height="600" viewBox={`${viewBox.x} ${viewBox.y} ${viewBox.width} ${viewBox.height}`}>
             {#each lines as line, i}
@@ -254,6 +264,7 @@
     }
     .project-latex {
         margin-top: 30px;
+        font-size: 28px;
     }
     .project-title {
         margin-top: 20px;
