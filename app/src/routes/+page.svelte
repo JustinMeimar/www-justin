@@ -43,7 +43,7 @@
             date: "May 2023",
         },
         {
-            title: 'Tree Grower',
+            title: 'Recurrence Tree Generator',
             route: 'tree',
             desc: 'Using stochastic recurrence relations to generate nature',
             imgLink: 'path/to/regex-engine-image.jpg',
