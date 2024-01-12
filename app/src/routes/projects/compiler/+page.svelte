@@ -63,7 +63,7 @@
     }
     
     onMount(async () => {
-        selectProgram(currentProgram);
+        // selectProgram(currentProgram);
     });
 
 </script>

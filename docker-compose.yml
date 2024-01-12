@@ -5,4 +5,7 @@ services:
     build: App.Dockerfile
     
   backend:
-    build: Flask.Dockerfile 
+    build: Flask.Dockerfile
+
+  runtime:
+    build: Runtime.Dockerfile
