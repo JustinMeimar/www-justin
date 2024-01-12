@@ -1,16 +1,22 @@
-# personal website
+# Personal Website
 
-hosted on homeserver in one command!
-(assuming u already set up nginx :P)
+Hosted on homeserver in one command! 
+To replace https://justinmeimar.com 
+(assuming you already set up nginx :p)
 
-todo:
+## TODO:
 
-frontend:
-- editor text not reactive
-- css styling
-- refactor into TypeScript library
+### Frontend:
+- Editor text not reactive
+- CSS styling
+- Refactor into TypeScript library
 
-backend:
-- volume mount for backend (done)
-- docker image for svelte app
-- manage both images in compose.yml
+### Backend:
+- Volume mount for backend (done)
+- Docker image for Svelte app
+- Manage both images in `compose.yml`
+
+### Images:
+
+![Tree](doc/tree.png)
+![Home](doc/home.png)
