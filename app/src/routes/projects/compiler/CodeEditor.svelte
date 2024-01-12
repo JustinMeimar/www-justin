@@ -8,6 +8,7 @@
 
     onMount(async () => {
         if (typeof window !== 'undefined') {
+            
             const { CodeJar } = await import('codejar');
             const Prism = await import('prismjs');
 
@@ -20,7 +21,15 @@
         }
     });
 
-    // Cleanup to prevent memory leaks
+    $: {
+        if (code) {
+            if (typeof window !== 'undefined') {
+                jar.updateCode(code);
+                editor.innerHTML = Prism.highlight(code, Prism.languages.js, 'javascript')
+            }
+        }
+    }
+    
     onDestroy(() => {
         if (jar) {
             jar.destroy();

@@ -211,7 +211,7 @@
     $: nLatexString = `T(${n})`;
 
 </script>
-<Navbar></Navbar>
+<Navbar navbarColor="info-subtle"></Navbar>
 <div class="project-container">
     <div class="project-title">
         Recurrence Tree Generator
@@ -255,6 +255,7 @@
         width: min-content;
         height: min-content;
         transform-origin: center;
+        margin-bottom: 40px;
     }
     .project-container {
         display: flex;

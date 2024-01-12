@@ -1,8 +1,10 @@
 from flask import Flask, request, Blueprint, jsonify
+from flask_cors import CORS
 from typing import Optional, Union, List
 import subprocess
 
 app = Flask(__name__)
+CORS(app)
 
 def install_regex_routes(app: Flask):
     url_prefix = "/api/regex"

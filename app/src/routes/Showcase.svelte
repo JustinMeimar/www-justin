@@ -1,13 +1,6 @@
 <script lang="ts">
-
-    import { onMount } from 'svelte';
-    import type { Project } from '$lib/index';
-
-    export let items : Project[] = [];
-    
-    onMount(() => {
-    })
-
+    import type { Project } from '$lib/types';
+    export let items : Project[] = []; 
 </script>
 
 <div class="showcase-container">

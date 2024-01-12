@@ -52,24 +52,24 @@
 </div>
 
 <style>
-
     .page-container {
         display: flex;
         flex-direction: column;
         min-height: 100vh;
     }
-
     .about-page {
         text-align: center;
         width: 60%;
+        max-width: 600px;
         margin: auto;
         padding: 20px;
-        flex-grow: 1; /* This makes sure that this container takes up all available space */
+        flex-grow: 1;
     }
-
     .content {
         margin: 20px 0;
-        padding-bottom: 50px; /* Add padding at the bottom */
+        padding-bottom: 50px;
+        max-height: 50%;
+        overflow: auto;
     }
     .title {
         font-size: 2em;
