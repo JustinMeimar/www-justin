@@ -58,8 +58,7 @@
 </svelte:head>
 
 <div class="home-page-wrapper">
-
-    <Navbar></Navbar>
+    <Navbar navbarColor="info-subtle"></Navbar>
     <div class="site-title">
         www-justin 
     </div>
@@ -67,9 +66,10 @@
         full stack - cloud infra - more
     </div>
     <Showcase items={projects}/>
-    <Footer></Footer>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
 </div>
+
+<Footer></Footer>
 
 <style>
     @import 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css';
