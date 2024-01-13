@@ -7,8 +7,18 @@
 
     let isOpen = false;
     
+    let subtitle = "";
+    const fullSubtitleText = "systems - full stack - cloud infra - more";
+
     onMount(() => {
-    
+        let i = 0;
+        const typingInterval = setInterval(() => {
+            subtitle += fullSubtitleText[i];
+            i++;
+            if (i === fullSubtitleText.length) {
+                clearInterval(typingInterval);
+            }
+        }, 50);
     });
 </script>
 
@@ -22,7 +32,7 @@
         www-justin 
     </div>
     <div class="site-sub-title">
-        systems - full stack - cloud infra - more
+        {subtitle}
     </div>
     <Showcase items={projectDescs}/>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
@@ -49,6 +59,12 @@
         font-weight: 200;
         width: 100%;
         margin-top: 40px;
+        background-color: #f9f9f9;
+        width: min-content;
+        white-space: nowrap;
+        overflow: hidden;
+        border-radius: 10px;
+        margin-bottom: 10px;
     }
     .site-sub-title {
         font-size: 24px;
@@ -56,7 +72,12 @@
         text-align: center;
         font-family: 'Roboto', sans-serif;
         font-weight: 200;
+        background-color: #f9f9f9;
         width: 100%;
+        width: min-content;
+        white-space: nowrap;
+        overflow: hidden;
+        padding: 5px;
     }
     .home-page-wrapper {
         width: 100%;

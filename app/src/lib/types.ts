@@ -3,5 +3,6 @@ export type Project = {
     date: string,
     desc: string, 
     route: string, 
-    imgLink: string
-};   
+    imgLink: string,
+    tags: string[]
+};
