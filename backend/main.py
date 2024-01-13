@@ -31,15 +31,16 @@ def install_regex_routes(app: Flask):
 
 def install_compiler_routes(app: Flask):
 
-    url_prefix = "/api/compiler" 
+    url_prefix = "/v2/api/compiler" 
     bp = Blueprint(url_prefix, __name__)
-
+ 
     def compiler_pipeline(input_file, output_exe):
-        gazc = "/var/bin/gazc"
-        libgazrt = "/var/bin/libgazrt.so"
+        
+        gazc = "/usr/local/bin/gazc"
+        libgazrt = "/usr/local/lib/libgazrt.so"
         llc = "/usr/bin/llc"
         clang = "/usr/bin/clang"
-
+        
         response = {}
         commands = [
             [gazc, input_file, "/tmp/prog.ll"],
@@ -67,7 +68,7 @@ def install_compiler_routes(app: Flask):
 
     @bp.route("/run", methods=["POST"])
     def run_program():
-
+        
         req_json = request.get_json()
         program = req_json["program"]
         tmp_in_file = "/tmp/prog.in"
@@ -87,7 +88,7 @@ if __name__ == "__main__":
     install_compiler_routes(app)
     install_regex_routes(app)
 
-    @app.route("/")
+    @app.route("/v2/api/index")
     def index():
         return "hello, world"
 
