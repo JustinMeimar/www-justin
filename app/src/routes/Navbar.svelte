@@ -23,7 +23,7 @@
             </NavLink>
         </NavItem>
         <NavItem>
-            <NavLink href="/blog">
+            <NavLink href="https://justinmeimar.github.io/" target="_blank">
                 Blog
             </NavLink>
         </NavItem>

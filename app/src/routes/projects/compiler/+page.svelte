@@ -5,6 +5,7 @@
     import CodeEditor from './CodeEditor.svelte';
     import { Button, Dropdown, DropdownToggle, DropdownMenu, DropdownItem, Nav } from "@sveltestrap/sveltestrap";
     import { baseUrl } from '$lib/config';
+    import * as colors from "$lib/colors";
 
     export let editorContent : string = '';
     export let llvmIRContent : string = '';
@@ -13,7 +14,7 @@
     let currentProgram : string = "helloworld";
 
     const programs : string[] = [
-        "break_continue", "helloworld", "tuple",
+        "helloworld", "break_continue", "tuple",
         "control_flow", "iterator", "type_promotion",
         "fibonnaci", "matrix", "type_qualifier",
         "filter", "mergesort", "vector",
@@ -21,9 +22,12 @@
         "generator", "quicksort"
     ]; 
 
-    const clearOutput = () => { outputContent = '';}
+    const clearOutput = () => {
+        outputContent = '\n';
+        llvmIRContent = '\n';
+    }
 
-    async function selectProgram(program: string) {
+    const selectProgram = async (program: string) => {
 
         const response = await fetch(
             `/programs/input_compiler_${program}.txt`
@@ -37,43 +41,46 @@
     } 
 
     const runProgram = async () : Promise<any> => {
-        const response = await fetch(`${baseUrl}/api/compiler/run`, {
+        await fetch(`${baseUrl}/compiler/run`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                "program": `
-                    typedef integer int;
-
-                    procedure main() returns integer {
-                        string sayHello = "hello";
-                        2-> std_output;
-                        1-> std_output;
-                        return 0;
-                    }
-                `
+                "program": editorContent
             })
-        }).then(async response => {
+        }).then(async response => { 
+            
             const responseData = await response.json();
-            console.log(responseData);
+            llvmIRContent = responseData.llvm_ir;
+            outputContent = responseData.stdout;
+
         }).catch(error => {
             console.log("error:", error); 
         });
     }
     
     onMount(async () => {
-        // selectProgram(currentProgram);
+        document.documentElement.style.setProperty('--deep-black', colors.deep_black);
+        document.documentElement.style.setProperty('--hyper-purple', colors.hyper_purple);
     });
+    
+    $: {
+        if (outputContent || llvmIRContent) {
+            console.log("output:", outputContent);
+        }
+    }
 
 </script>
 
 <div class="component-body">
-    <Navbar></Navbar>
+    <Navbar navbarColor='info-subtle'> </Navbar>
     <div class="header">
         <div class="title">
             Compiler Explorer 
         </div>
+    </div>
+    <div class="sub-header">
     </div>
     <div class="editor"></div>
     <div class="area-container">
@@ -108,7 +115,7 @@
             <div class="utility-bar">
                 <Button color="warning" on:click={clearOutput}>Clear</Button>
             </div>
-            <CodeEditor code{outputContent}/>
+            <CodeEditor code={outputContent}/>
         </div>
     </div>
     <Footer></Footer>
@@ -116,15 +123,12 @@
 
 <style>
     .component-body {
-        /* color: #E0E0E0; */
         display: flex;
         flex-direction: column;
         height: 100vh;
         min-width: 100%;
         margin: 0;
         padding: 0;
-        /* border: 1px solid white; */
-        /* background-color: #1A1A1A; */
     }
     .area-container {
         display: flex;
@@ -152,6 +156,8 @@
         align-items: center;
     }
     .title {
+        margin-top: 20px;
+        margin-bottom: 10px;
         font-size: 40px;
         font-weight: 300;
         text-align: center;

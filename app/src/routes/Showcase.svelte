@@ -23,15 +23,16 @@
         margin: auto;
         display: flex;
         flex-wrap: wrap;
-        max-width: 450px;
+        max-width: 600px;
         justify-content: center;
         align-content: center;
         font-family: 'Roboto', sans-serif;
         font-weight: 350;
     }
     .showcase-item {
-        min-width: 150px;
-        max-width: 150px;
+        min-width: 250px;
+        min-height: 100px;
+        max-width: 250px;
         margin: 5px;
         outline: 1px solid black; 
         border-radius: 8px;

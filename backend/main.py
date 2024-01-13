@@ -35,8 +35,8 @@ def install_compiler_routes(app: Flask):
     bp = Blueprint(url_prefix, __name__)
 
     def compiler_pipeline(input_file, output_exe):
-        gazc = "/var/bin/gazc"
-        libgazrt = "/var/bin/libgazrt.so"
+        gazc = "/usr/local/bin/gazc"
+        libgazrt = "/usr/local/lib/libgazrt.so"
         llc = "/usr/bin/llc"
         clang = "/usr/bin/clang"
 
