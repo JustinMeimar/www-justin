@@ -4,12 +4,13 @@
     import Navbar from '../../Navbar.svelte';
     import CodeEditor from './CodeEditor.svelte';
     import { Button, Dropdown, DropdownToggle, DropdownMenu, DropdownItem, Nav } from "@sveltestrap/sveltestrap";
-    import { baseUrl } from '$lib/config';
     import * as colors from "$lib/colors";
 
     export let editorContent : string = '';
     export let llvmIRContent : string = '';
     export let outputContent : string = '';
+    
+    const baseUrl = "https://justinmeimar.com/v2/api";
     let dropdownOpen : boolean = false;
     let currentProgram : string = "helloworld";
 

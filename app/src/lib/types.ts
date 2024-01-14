@@ -1,8 +1,14 @@
 export type Project = {
+
+    // for the home page card
     title: string,
-    date: string,
     desc: string, 
     route: string, 
-    imgLink: string,
     tags: string[]
+
+    // for project page 
+    date?: string,
+    imgLink?: string,
+    longDesc?: string,
+    technologies?: string[], 
 };

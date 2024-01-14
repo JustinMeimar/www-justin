@@ -259,6 +259,7 @@
     }
     .project-container {
         display: flex;
+        flex-grow: 1;
         justify-content: center;
         align-items: center;
         flex-direction: column;

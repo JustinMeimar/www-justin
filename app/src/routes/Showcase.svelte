@@ -106,6 +106,8 @@
         border-radius: 3px;
         font-size: 10px;
         margin: 2px;
+        overflow: hidden;
+        white-space: nowrap;
     }
     .showcase-container {
         margin: auto; 

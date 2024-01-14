@@ -7,7 +7,7 @@ app = Flask(__name__)
 CORS(app)
 
 def install_regex_routes(app: Flask):
-    url_prefix = "/api/regex"
+    url_prefix = "/v2/api/regex"
     bp = Blueprint(url_prefix, __name__)
     
     @bp.route("/execute", methods=["POST"])

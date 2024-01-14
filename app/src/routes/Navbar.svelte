@@ -28,7 +28,7 @@
             </NavLink>
         </NavItem>
         <NavItem>
-            <NavLink href="/resume">
+            <NavLink href="%sveltekit.assets%/resume.pdf">
                 Resume
             </NavLink>
         </NavItem>
