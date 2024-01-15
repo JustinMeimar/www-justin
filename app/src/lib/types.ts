@@ -8,6 +8,7 @@ export type Project = {
 
     // for project page 
     date?: string,
+    guiLink?: string,
     imgLink?: string,
     longDesc?: string,
     technologies?: string[], 

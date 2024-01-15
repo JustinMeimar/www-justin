@@ -1,5 +1,5 @@
 <script lang="ts">
-    import "../global.css";
+    // import "../global.css";
     import type { Project } from "$lib/types";
     import { tagMap } from "$lib/projects";
 
@@ -31,10 +31,20 @@
         <div class="info-container-desc">
             {project.longDesc}
         </div>
+        {#if project.imgLink}
+            <div class="info-container-preview">
+                <div class="image-container">
+                    <a href={project.guiLink} target="_blank">
+                        <img src={project.imgLink} alt=""/>
+                    </a>
+                </div>
+            </div>
+        {/if}
     </div>
 </div>
 
 <style>
+    /* all */
     .info-template {
         text-align: center;
         max-width: 800px;
@@ -45,6 +55,18 @@
         border-radius: 10px;
         background-color: white;
     }
+    .info-container-desc, .info-container-date, .info-container-tech {
+        margin-bottom: 15px;
+        font-size: 16px;
+    }
+    /* title */
+    .title {
+        font-size: 30px;
+        font-weight: bold;
+        margin-bottom: 20px;
+        color: #333;
+    }
+    /* tags */
     .info-container-tags {
         display: flex;
         flex-wrap: wrap;
@@ -58,15 +80,23 @@
         font-size: 14px;
         margin: 5px;
         white-space: nowrap; 
+        transition: transform 0.2s ease;
     }
-    .title {
-        font-size: 30px;
-        font-weight: bold;
+    .info-tag:hover {
+        transform: scale(1.1);
+    }
+    /* preview image */
+    .info-container-preview {
         margin-bottom: 20px;
-        color: #333;
     }
-    .info-container-desc, .info-container-date, .info-container-tech {
-        margin-bottom: 15px;
-        font-size: 16px;
+    .info-container-preview img {
+        width: 500px;
+        transition: transform 0.6s ease-in-out, filter 0.3s ease;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.3);
     }
+    .info-container-preview:hover img {
+        filter: brightness(70%);
+        cursor: pointer;
+    } 
 </style>

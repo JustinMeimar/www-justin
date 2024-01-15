@@ -5,13 +5,11 @@
     import { tagMap } from '$lib/projects';
     export let items : Project[] = []; 
     
-    let searchText = '';
-    let searchTags: string[] = [];
-    
-    let filteredItems = items;
-    
-    let currentPage = 1;
     const itemsPerPage = 6;
+    let searchText = '';
+    let searchTags: string[] = []; 
+    let filteredItems = items; 
+    let currentPage = 1;
     let totalPageCount = Math.ceil(items.length / itemsPerPage);
 
     const filterItems = () => {
@@ -22,11 +20,12 @@
                 return t;
             }); 
             filteredItems = items.filter((project) => {
-                return project.tags.some(projectTag => 
+
+                return (project.tags.some(projectTag => 
                     searchTags.some(searchTag => 
                         projectTag.toLowerCase().includes(searchTag.toLowerCase())
                     )
-                ); 
+                ) || project.title.toLowerCase().includes(searchText)); 
             });
             totalPageCount = Math.ceil(filteredItems.length / itemsPerPage);
         }

@@ -1,5 +1,5 @@
 <script lang="ts">
-    import "./global.css";
+    // import "../static/global.css";
     import Showcase from './Showcase.svelte'; 
     import { onMount } from "svelte"; 
     import { projectDescs } from '$lib/projects';
@@ -9,7 +9,7 @@
     let isOpen = false;
     
     let subtitle = "";
-    const fullSubtitleText = "systems - full stack - cloud infra - more";
+    const fullSubtitleText = "systems - full stack - more";
 
     onMount(() => {
         let i = 0;
