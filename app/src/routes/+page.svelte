@@ -5,7 +5,6 @@
     import { projectDescs } from '$lib/projects';
     import Footer from './Footer.svelte';
     import Navbar from './Navbar.svelte';
-
     let isOpen = false;
     
     let subtitle = "";

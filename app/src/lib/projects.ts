@@ -7,7 +7,7 @@ export type TagMapType = {
 
 export const tagMap : TagMapType = {
     '#gui': '#28a6aa',
-    '#systems': '#fa9014',
+    '#systems': '#fa901d',
     '#hackathon': '#f94e95',
     "#web-dev": "#cc76e5",
 };
