@@ -9,10 +9,10 @@ const config = {
         adapter: adapter({
             pages: 'build',
             assets: 'build',
-            fallback: 'app.html',
+            fallback: 'index.html',
             precompress: false,
             strict: true
-        }),
+        }), 
         alias: {
             '$routes': './src/routes',
             '$routes/*': './src/routes/*',

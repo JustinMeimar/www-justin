@@ -7,31 +7,26 @@ app = Flask(__name__)
 CORS(app)
 
 def install_regex_routes(app: Flask):
-    url_prefix = "/v2/api/regex"
+    url_prefix = "/api/regex"
     bp = Blueprint(url_prefix, __name__)
     
-    @bp.route("/execute", methods=["POST"])
-    def run_string():
-        req_json = request.get_json()
-        input_string = req_json["input_string"]
+    @bp.route("/<expr>/<string>", methods=["POST"])
+    def execute(expr, string):
 
-        cmds = ["/usr/bin/regex", "a", "a", "--emit-json-stdout"] 
-        
-        result = subprocess.run(cmds, capture_output=True, text=True)
-        stdout = result.stdout
-        stderr = result.stderr
+        cmds = ["/usr/bin/regex", expr, string, "--emit-json-stdout"] 
 
-        return jsonify({
-                "stdout": stdout, 
-                "stderr": stderr, 
-                "input": input_string
-            })
+        try:
+            result = subprocess.run(cmds, capture_output=True, text=True)
+            stdout = result.stdout
+            return jsonify(stdout)
+        except:
+            return jsonify({result.stderr})
 
     app.register_blueprint(bp, url_prefix=url_prefix)
 
 def install_compiler_routes(app: Flask):
 
-    url_prefix = "/v2/api/compiler" 
+    url_prefix = "/api/compiler" 
     bp = Blueprint(url_prefix, __name__)
  
     def compiler_pipeline(input_file, output_exe):

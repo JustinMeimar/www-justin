@@ -2,8 +2,16 @@
     // import "../global.css";
     import type { Project } from "$lib/types";
     import { tagMap } from "$lib/projects";
-
+    import { defaultSearchText } from "$lib/store";
+    import { goto } from "$app/navigation";
+    
     export let project: Project;
+
+    const tagClickHandler =  (tag: string) => {
+        defaultSearchText.set(tag);
+        goto('/');
+    }
+
 </script>
 
 <div class="home-page-wrapper">
@@ -13,9 +21,12 @@
         </div>
         <div class="info-container-tags">
             {#each project.tags as tag}
-                <div class="info-tag" style="background-color: {tagMap[tag]}">
+                <button type="button" 
+                        class="info-tag" 
+                        style="background-color: {tagMap[tag]}" 
+                        on:click={() => tagClickHandler(tag)}>
                     {tag}
-                </div> 
+                </button>    
             {/each}
         </div> 
         <div class="info-container-date">
@@ -29,11 +40,12 @@
             </p>
         </div>
         <div class="info-container-desc">
-            {project.longDesc}
+            <p><strong>Description:</strong> {project.longDesc}</p>
         </div>
         {#if project.imgLink}
             <div class="info-container-preview">
                 <div class="image-container">
+
                     <a href={project.guiLink} target="_blank">
                         <img src={project.imgLink} alt=""/>
                     </a>
@@ -54,6 +66,10 @@
         box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
         border-radius: 10px;
         background-color: white;
+    }
+    .info-container-desc {
+        text-align: left;
+        margin-left: 10px;
     }
     .info-container-desc, .info-container-date, .info-container-tech {
         margin-bottom: 15px;
@@ -81,6 +97,9 @@
         margin: 5px;
         white-space: nowrap; 
         transition: transform 0.2s ease;
+        cursor: pointer;
+        border: none;
+        box-shadow: 0 2px 4px 0 rgba(0,0,0,0.3);
     }
     .info-tag:hover {
         transform: scale(1.1);

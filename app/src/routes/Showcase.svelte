@@ -3,12 +3,13 @@
     import { onMount } from "svelte"; 
     import type { Project } from '$lib/types';
     import { tagMap } from '$lib/projects';
+    
     export let items : Project[] = []; 
+    export let searchText = '';
     
     const itemsPerPage = 6;
-    let searchText = '';
     let searchTags: string[] = []; 
-    let filteredItems = items; 
+    let filteredItems : Project[] = items; 
     let currentPage = 1;
     let totalPageCount = Math.ceil(items.length / itemsPerPage);
 
@@ -44,7 +45,10 @@
                 break;
         }
     }
- 
+    
+    onMount(() => {
+        filterItems();
+    });
     $: paginatedItems = filteredItems.slice((currentPage-1) * itemsPerPage, currentPage * itemsPerPage);
 
 </script>
@@ -135,7 +139,6 @@
         padding: 10px;
         transition: all 0.3s ease;
         box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
-        transition: all 0.3s ease, box-shadow 0.3s ease;
     }
     .showcase-item-desc {
         min-height: 34px;
