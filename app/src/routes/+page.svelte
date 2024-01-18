@@ -35,7 +35,13 @@
 </svelte:head>
 
 <Navbar navbarColor="info-subtle"></Navbar>
+
+
+
 <div class="home-page-wrapper">
+    <div class="alert alert-warning" role="alert">
+        This website is currently in the process of being updated from version 1 to 2.
+    </div>
     <div class="home-logo">
         <!-- svelte-ignore a11y-missing-attribute -->
         <img src="/images/logo.png"/>
