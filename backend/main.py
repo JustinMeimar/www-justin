@@ -2,6 +2,7 @@ from flask import Flask, request, Blueprint, jsonify
 from flask_cors import CORS
 from typing import Optional, Union, List
 import subprocess
+import json
 
 app = Flask(__name__)
 CORS(app)
@@ -10,17 +11,18 @@ def install_regex_routes(app: Flask):
     url_prefix = "/api/regex"
     bp = Blueprint(url_prefix, __name__)
     
-    @bp.route("/<expr>/<string>", methods=["POST"])
+    @bp.route("/<expr>/<string>", methods=["GET"])
     def execute(expr, string):
 
-        cmds = ["/usr/bin/regex", expr, string, "--emit-json-stdout"] 
+        cmds = ["/usr/local/bin/regex", expr, string, "--emit-json-stdout"] 
 
         try:
             result = subprocess.run(cmds, capture_output=True, text=True)
-            stdout = result.stdout
-            return jsonify(stdout)
-        except:
-            return jsonify({result.stderr})
+            json_res = json.loads(result.stdout)
+
+            return jsonify(json_res)
+        except Exception as E:
+            return jsonify({"error": E})
 
     app.register_blueprint(bp, url_prefix=url_prefix)
 

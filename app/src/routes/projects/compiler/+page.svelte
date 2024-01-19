@@ -10,7 +10,7 @@
     export let llvmIRContent : string = '';
     export let outputContent : string = '';
     
-    const baseUrl = "https://justinmeimar.com/v2/api";
+    const baseUrl = "https://justinmeimar.com/api";
     let dropdownOpen : boolean = false;
     let currentProgram : string = "helloworld";
 
