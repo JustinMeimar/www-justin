@@ -17,6 +17,3 @@ To replace https://justinmeimar.com
 - Manage both images in `compose.yml`
 
 ### Images:
-
-![Tree](doc/tree.png)
-![Home](doc/home.png)

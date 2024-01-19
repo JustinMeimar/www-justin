@@ -1,8 +1,7 @@
 FROM python:3.8-slim
 
 RUN mkdir /backend
-
-RUN mkdir -p /usr/bin
+RUN mkdir -p /usr/local/bin
 
 RUN apt-get update && \
     apt-get install -y llvm && \
@@ -18,4 +17,4 @@ COPY ./backend ./
 
 EXPOSE 5000
 
-CMD ["python3", "main.py"]
+CMD ["gunicorn", "-w", "4", "-b", "0.0.0.0:5000", "main:app"]
