@@ -36,15 +36,12 @@
 
 <Navbar navbarColor="info-subtle"></Navbar>
 
-
-
 <div class="home-page-wrapper">
-    <div class="alert alert-warning" role="alert">
+    <!-- <div class="alert alert-warning" role="alert">
         This website is currently in the process of being updated from version 1 to 2.
-    </div>
+    </div> -->
     <div class="home-logo">
-        <!-- svelte-ignore a11y-missing-attribute -->
-        <img src="/images/logo.png"/>
+        <!-- TODO: Add title -->
     </div>
     <Showcase items={projectDescs} searchText={searchText}/>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">

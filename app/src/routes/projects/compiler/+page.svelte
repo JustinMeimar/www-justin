@@ -17,7 +17,7 @@
     const programs : string[] = [
         "helloworld", "break_continue", "tuple",
         "control_flow", "iterator", "type_promotion",
-        "fibonnaci", "matrix", "type_qualifier",
+        "fibonaci", "matrix", "type_qualifier",
         "filter", "mergesort", "vector",
         "forward_decl", "pass_by_reference",
         "generator", "quicksort"

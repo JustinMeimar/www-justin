@@ -71,21 +71,28 @@
             <a  href={`/projects/${item.route}`} 
                 class="plain-link">
                 <div class="showcase-item">
-                    <div class="showcase-item-title">
-                        {item.title}
+                    <div class="showcase-item-front">
+                        <div class="showcase-item-title">
+                            {item.title}
+                        </div>
+                        <div class="showcase-item-desc">
+                            {item.desc}
+                        </div>
+                        <div class="showcase-item-more-info">
+                            {#each item.tags as tag}
+                                <div class="tag"
+                                    style="background-color: {tagMap[tag]}"
+                                >
+                                    {tag}
+                                </div> 
+                            {/each}
+                        </div> 
+                    </div> 
+                    <div class="showcase-item-back">
+                        <!-- Content to show on flip -->
+                        This is the back...
                     </div>
-                    <div class="showcase-item-desc">
-                        {item.desc}
-                    </div>
-                    <div class="showcase-item-more-info">
-                        {#each item.tags as tag}
-                            <div class="tag"
-                                style="background-color: {tagMap[tag]}"
-                            >
-                                {tag}
-                            </div> 
-                        {/each}
-                    </div>
+                    
                 </div> 
             </a>
         {/each} 
@@ -139,6 +146,8 @@
         padding: 10px;
         transition: all 0.3s ease;
         box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
+        perspective: 1000px;
+        transition: transform 0.5s; 
     }
     .showcase-item-desc {
         min-height: 34px;
@@ -153,12 +162,35 @@
         display: flex;
     }
     .showcase-item:hover {
-        background-color: rgb(234, 248, 255);
         box-shadow: 8px 8px 15px rgba(0, 0, 0, 0.3);
     }
-    .showcase-item:hover .showcase-item-title {
-        font-size: 1.5em;
+
+    /* .showcase-item:hover {
+        transform: rotateY(180deg);
+        background-color: rgb(0, 220, 228, 0.3);
+    } */
+/* 
+    .showcase-item .showcase-item-title,
+    .showcase-item .showcase-item-desc,
+    .showcase-item .showcase-item-more-info {
+        backface-visibility: hidden;
+    } */
+    .showcase-item-back {
+        display: none; /* Initially hide the back content */
+        transform: rotateY(180deg); 
     }
+
+    .showcase-item:hover .showcase-item-front {
+        display: none; /* Hide front content on hover */
+    }
+
+    .showcase-item:hover .showcase-item-back {
+        display: block; /* Show back content on hover */
+    }
+    .showcase-item, .showcase-item-title, .showcase-item-desc, .showcase-item-more-info {
+        transition: transform 0.5s;
+    }
+
     .showcase-item-desc {
         font-size: 12px;
     }
