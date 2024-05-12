@@ -6,10 +6,10 @@
 
 <style>
     .footer {
-        background-color: #333;
+        background-color: #171717;
         color: white;
         text-align: center;
-        padding: 20px 0;
+        padding: 15px 0;
         bottom: 0;
         width: 100%;
     }
@@ -17,7 +17,7 @@
     .container {
         max-width: 1200px;
         margin: auto;
-        padding: 0 20px;
+        padding: 0 10px;
     }
 
 </style>

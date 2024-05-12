@@ -65,7 +65,8 @@
         padding: 20px;
         box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
         border-radius: 10px;
-        background-color: white;
+        background-color: rgb(32, 63, 85);
+        color: white;
     }
     .info-container-desc {
         text-align: left;
@@ -80,7 +81,7 @@
         font-size: 30px;
         font-weight: bold;
         margin-bottom: 20px;
-        color: #333;
+        color: white;
     }
     /* tags */
     .info-container-tags {

@@ -7,7 +7,7 @@
     export let items : Project[] = []; 
     export let searchText = '';
     
-    const itemsPerPage = 6;
+    const itemsPerPage = 100;
     let searchTags: string[] = []; 
     let filteredItems : Project[] = items; 
     let currentPage = 1;
@@ -26,7 +26,7 @@
                     searchTags.some(searchTag => 
                         projectTag.toLowerCase().includes(searchTag.toLowerCase())
                     )
-                ) || project.title.toLowerCase().includes(searchText)); 
+                ) || project.desc.toLowerCase().includes(searchText.toLowerCase())); 
             });
             totalPageCount = Math.ceil(filteredItems.length / itemsPerPage);
         }
@@ -63,36 +63,25 @@
                 on:blur={handleEvent}
                 on:mouseover={handleEvent}
                 on:mouseout={handleEvent}
-                class="form-control rounded" placeholder="Search for tags...">
+                class="form-control rounded" placeholder="Fuzzy Search...">
         </div>
     </div>  
     <div class="showcase-container">
         {#each paginatedItems as item}
-            <a  href={`/projects/${item.route}`} 
+            <a  href={`${item.link}`} target="_blank" 
                 class="plain-link">
                 <div class="showcase-item">
-                    <div class="showcase-item-front">
-                        <div class="showcase-item-title">
-                            {item.title}
-                        </div>
-                        <div class="showcase-item-desc">
-                            {item.desc}
-                        </div>
-                        <div class="showcase-item-more-info">
-                            {#each item.tags as tag}
-                                <div class="tag"
-                                    style="background-color: {tagMap[tag]}"
-                                >
-                                    {tag}
-                                </div> 
-                            {/each}
-                        </div> 
-                    </div> 
-                    <div class="showcase-item-back">
-                        <!-- Content to show on flip -->
-                        This is the back...
+                    <div class="showcase-item-title">
+                        {item.title}
                     </div>
-                    
+                    <div class="showcase-item-desc">
+                        {item.desc}
+                    </div>
+                    <div class="showcase-item-icons">
+                       {#each item.iconLinks as icon}
+                            <img src="/icons/{icon}.svg" class="{icon}-icon" alt=""/>
+                       {/each} 
+                    </div> 
                 </div> 
             </a>
         {/each} 
@@ -109,115 +98,185 @@
 </div>
 
 <style>
-    .tag {
-        /* background-color: #28a6aa; */
-        color: white;
-        padding: 3px 6px;
-        border-radius: 3px;
-        font-size: 10px;
-        margin: 2px;
-        overflow: hidden;
-        white-space: nowrap;
-    }
-    .showcase-container {
-        margin: auto; 
-        max-width: 600px;
-        justify-content: center;
-        align-content: center;
-        font-family: 'Roboto', sans-serif;
-        font-weight: 350;
-        display: flex;
-        gap: 10px;
-        flex-wrap: wrap;
-    }
-    .showcase-search-container {
-        max-width: 600px;
-        margin: auto;
-    }
-    .showcase-item {
-        min-width: 250px;
-        min-height: 100px;
-        max-width: 250px;
-        margin: 5px;
-        outline: 1px solid black; 
-        border-radius: 8px;
-        background-color: white;
-        text-align:center;
-        padding: 10px;
-        transition: all 0.3s ease;
-        box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
-        perspective: 1000px;
-        transition: transform 0.5s; 
-    }
-    .showcase-item-desc {
-        min-height: 34px;
-    }
-    .showcase-item-more-info {
-        left: 0;
-        right: 0;
-        background-color: rgb(255, 255, 255);
-        transition: bottom 0.3s ease;
-        padding: 10px;
-        border-radius: 0 0 8px 8px;
-        display: flex;
-    }
-    .showcase-item:hover {
-        box-shadow: 8px 8px 15px rgba(0, 0, 0, 0.3);
-    }
+.tag {
+    color: white;
+    padding: 3px 6px;
+    border-radius: 3px;
+    font-size: 10px;
+    margin: 2px;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.showcase-container {
+    margin: auto; 
+    max-width: 600px;
+    justify-content: center;
+    align-content: center;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 200;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+.showcase-search-container {
+    max-width: 600px;
+    margin: auto;
+}
+.showcase-item {
+    min-width: 260px;
+    min-height: 100px;
+    max-width: 260px;
+    margin: 5px;
+    background-color: rgb(32, 63, 85);
+    text-align:center;
+    padding: 10px;
+    transition: all 0.3s ease;
+    box-shadow: 5px 4px 5px rgba(0, 0, 0, 0.8);
+    perspective: 1000px;
+    transition: transform 0.5s; 
+    color: white;
+} 
+.showcase-item:hover {
+    background-color: rgb(24, 51, 69);
+} 
+.showcase-item-desc {
+    min-height: 34px;
+}
+.showcase-item-more-info {
+    left: 0;
+    right: 0;
+    background-color: rgb(255, 255, 255);
+    transition: bottom 0.3s ease;
+    padding: 10px;
+    border-radius: 0 0 8px 8px;
+    display: flex;
+}
+.showcase-item-desc {
+    font-size: 14px;
+}
+.showcase-item-title {
+    transition: font-size 0.3s ease;
+    font-size: 24px;
+}
+.showcase-item-icons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 5px;
+}
+img {
+    display: inline-block;
+    width: 29px;
+    height: 29px;
+    object-fit: contain;
+}
+.plain-link {
+    text-decoration: none;
+    color: inherit;
+}
+.pagination-bar {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 10px;;
+}
 
-    /* .showcase-item:hover {
-        transform: rotateY(180deg);
-        background-color: rgb(0, 220, 228, 0.3);
-    } */
-/* 
-    .showcase-item .showcase-item-title,
-    .showcase-item .showcase-item-desc,
-    .showcase-item .showcase-item-more-info {
-        backface-visibility: hidden;
-    } */
-    .showcase-item-back {
-        display: none; /* Initially hide the back content */
-        transform: rotateY(180deg); 
-    }
+.pagination-bar button {
+    background-color: white;
+    padding: 5px 10px;
+    margin: 0 5px;
+    cursor: pointer;
+}
 
-    .showcase-item:hover .showcase-item-front {
-        display: none; /* Hide front content on hover */
-    }
+.pagination-bar button.selected {
+    font-weight: bold;
+    text-decoration: underline;
+}
 
-    .showcase-item:hover .showcase-item-back {
-        display: block; /* Show back content on hover */
-    }
-    .showcase-item, .showcase-item-title, .showcase-item-desc, .showcase-item-more-info {
-        transition: transform 0.5s;
-    }
+.cplusplus-icon {
+    filter: invert(48%) sepia(92%) saturate(1352%) hue-rotate(189deg) brightness(95%) contrast(88%);
+}
 
-    .showcase-item-desc {
-        font-size: 12px;
-    }
-    .showcase-item-title {
-        transition: font-size 0.3s ease;
-        font-size: 20px;
-    }
-    .plain-link {
-        text-decoration: none;
-        color: inherit;
-    }
-    .pagination-bar {
-        display: flex;
-        justify-content: center;
-        margin-top: 20px;
-        margin-bottom: 10px;;
-    }
+.javascript-icon {
+    filter: invert(91%) sepia(76%) saturate(6487%) hue-rotate(360deg) brightness(105%) contrast(105%);
+}
 
-    .pagination-bar button {
-        background-color: white;
-        padding: 5px 10px;
-        margin: 0 5px;
-        cursor: pointer;
-    }
+/* C Icon */
+.c-icon {
+    filter: invert(30%) sepia(90%) saturate(1500%) hue-rotate(180deg) brightness(90%) contrast(89%);
+}
 
-    .pagination-bar button.selected {
-        font-weight: bold;
-        text-decoration: underline;
-    }
+/* Docker Icon */
+.docker-icon {
+    filter: invert(58%) sepia(5%) saturate(6462%) hue-rotate(187deg) brightness(89%) contrast(91%);
+}
+
+/* LLVM Icon */
+.llvm-icon {
+    filter: invert(42%) sepia(75%) saturate(3490%) hue-rotate(220deg) brightness(92%) contrast(83%);
+}
+
+/* PostgreSQL Icon */
+.postgresql-icon {
+    filter: invert(35%) sepia(91%) saturate(3432%) hue-rotate(205deg) brightness(90%) contrast(85%);
+}
+
+/* SQLite Icon */
+.sqlite-icon {
+    filter: invert(45%) sepia(10%) saturate(1300%) hue-rotate(340deg) brightness(92%) contrast(89%);
+}
+
+/* Ubuntu Icon */
+.ubuntu-icon {
+    filter: invert(38%) sepia(87%) saturate(2912%) hue-rotate(8deg) brightness(93%) contrast(90%);
+}
+
+/* Django Icon */
+.django-icon {
+    filter: invert(48%) sepia(95%) saturate(585%) hue-rotate(80deg) brightness(90%) contrast(87%);
+}
+
+/* Flask Icon */
+.flask-icon {
+    filter: invert(55%) sepia(30%) saturate(1500%) hue-rotate(320deg) brightness(90%) contrast(85%);
+}
+
+/* Nginx Icon */
+.nginx-icon {
+    filter: invert(48%) sepia(70%) saturate(702%) hue-rotate(142deg) brightness(89%) contrast(85%);
+}
+
+/* OpenAI Icon */
+.openai-icon {
+    filter: invert(76%) sepia(10%) saturate(7500%) hue-rotate(160deg) brightness(95%) contrast(89%);
+}
+
+/* React Icon */
+.react-icon {
+    filter: invert(55%) sepia(53%) saturate(1491%) hue-rotate(204deg) brightness(97%) contrast(88%);
+}
+
+/* Rust Icon */
+.rust-icon {
+    filter: invert(42%) sepia(87%) saturate(2982%) hue-rotate(2deg) brightness(88%) contrast(84%);
+}
+
+/* Svelte Icon */
+.svelte-icon {
+    filter: invert(50%) sepia(100%) saturate(6377%) hue-rotate(346deg) brightness(103%) contrast(101%);
+}
+
+/* TypeScript Icon */
+.typescript-icon {
+    filter: invert(67%) sepia(29%) saturate(5024%) hue-rotate(206deg) brightness(90%) contrast(92%);
+}
+
+/* WebAssembly Icon */
+.webassembly-icon {
+    filter: invert(33%) sepia(92%) saturate(839%) hue-rotate(192deg) brightness(86%) contrast(85%);
+}
+
+
+
 </style>

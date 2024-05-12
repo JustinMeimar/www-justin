@@ -8,38 +8,20 @@
     <div class="about-page">
         <h1>Hi, I’m Justin</h1>
         <div class="content">
-            
-            
-            <p class="body-text">
-                A computer science student at the University of Alberta. 
-                This website was created to bring my reclusive command line projects 
-                to life.
-            </p>
+        <p class="body-text">
+            I'm a Computer Science student at the University of Alberta. 
+        </p>
+        <p class="body-text"> 
+            To me, software development is a craft that perfectly balances engineering and art. 
+        </p>
+        <p class="body-text"> 
+            I'm always looking to get involved in interesting projects, sometimes starting them myself.
 
-            <p class="body-text">
-                I enjoy programming languages, web apps, systems software and more. 
-                When a programming idea gets into my head its difficult to get it out
-                except forcibly by slumping behind my keyboard for a couple days.
-                It is the iterative process of imagination, experimentation, discovery and 
-                integration that keeps me interested in programming.
-            </p>
-
-            <p class="body-text"> 
-                Writting computer code seems to walk the line between engineering and art. 
-                I have certainly felt at times that theese two traits can conflict. 
-                My perspective on how to achieve both in balance is to foremost 
-                treat programming like a trade which necessitates 
-                good craftsmanship. Only after following solid design principles,  
-                can the artistic touch shine through on an otherwise purely rational
-                creation.
-            </p>
-
-            <p class="body-text"> 
-                If you want to chat or send me a message, feel free to email
-                me at <a> meimar@ualberta.ca </a> 
-            </p>
+        </p>
+        <p class="body-text">
+            If you'd like to connect or share thoughts, don’t hesitate to reach out at <a href="mailto:meimar@ualberta.ca">meimar@ualberta.ca</a>.
+        </p>
         </div>
-
     </div>
     <Footer />
 </div>
@@ -56,7 +38,6 @@
         max-width: 600px;
         margin: auto;
         padding: 20px;
-        flex-grow: 1;
     }
     .content {
         margin: 20px 0;
