@@ -1,0 +1,24 @@
+// Hello, World!
+
+// typedefs 
+typedef integer int;
+typedef string StringTy;
+
+procedure main() returns integer {
+
+    // declare a string variabel
+    StringTy say_hello = "Hello, World";
+    
+    // pipe string to stdout 
+    say_hello -> stdout;
+    '\n'-> stdout;
+
+    // use a literal string 
+    "Hello, World\n" -> stdout;
+
+    // just a char... 
+    'a' -> stdout;
+    '\n'-> stdout;
+
+    return 0;
+}
